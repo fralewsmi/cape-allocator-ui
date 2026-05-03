@@ -1,13 +1,12 @@
 import { createFormHook } from "@tanstack/react-form";
 
-import { Select, SubscribeButton, TextArea, TextField } from "../components/demo.FormComponents";
-import { fieldContext, formContext } from "./demo.form-context";
+import { Select, Slider, SubscribeButton } from "../components/allocator.FormComponents";
+import { fieldContext, formContext } from "./allocator.form-context";
 
 export const { useAppForm } = createFormHook({
   fieldComponents: {
-    TextField,
     Select,
-    TextArea,
+    Slider,
   },
   formComponents: {
     SubscribeButton,

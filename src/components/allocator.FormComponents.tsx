@@ -1,14 +1,12 @@
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext, useFormContext } from "#/hooks/demo.form-context";
+import { useFieldContext } from "#/hooks/allocator.form-context";
 
-import { Button } from "#/components/ui/button";
-import { Input } from "#/components/ui/input";
-import { Textarea as ShadcnTextarea } from "#/components/ui/textarea";
-import * as ShadcnSelect from "#/components/ui/select";
 import { Slider as ShadcnSlider } from "#/components/ui/slider";
-import { Switch as ShadcnSwitch } from "#/components/ui/switch";
 import { Label } from "#/components/ui/label";
+import { Button } from "./ui/button";
+import { useFormContext } from "#/hooks/allocator.form-context";
+import * as ShadcnSelect from "#/components/ui/select";
 
 export function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext();
@@ -35,47 +33,6 @@ function ErrorMessages({ errors }: { errors: Array<string | { message: string }>
         </div>
       ))}
     </>
-  );
-}
-
-export function TextField({ label, placeholder }: { label: string; placeholder?: string }) {
-  const field = useFieldContext<string>();
-  const errors = useStore(field.store, (state) => state.meta.errors);
-
-  return (
-    <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
-        {label}
-      </Label>
-      <Input
-        value={field.state.value}
-        placeholder={placeholder}
-        onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
-      />
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-    </div>
-  );
-}
-
-export function TextArea({ label, rows = 3 }: { label: string; rows?: number }) {
-  const field = useFieldContext<string>();
-  const errors = useStore(field.store, (state) => state.meta.errors);
-
-  return (
-    <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
-        {label}
-      </Label>
-      <ShadcnTextarea
-        id={label}
-        value={field.state.value}
-        onBlur={field.handleBlur}
-        rows={rows}
-        onChange={(e) => field.handleChange(e.target.value)}
-      />
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-    </div>
   );
 }
 
@@ -121,41 +78,34 @@ export function Select({
   );
 }
 
-export function Slider({ label }: { label: string }) {
+export function Slider({
+  label,
+  min = 0,
+  max = 100,
+}: {
+  label: string;
+  min?: number;
+  max?: number;
+}) {
   const field = useFieldContext<number>();
   const errors = useStore(field.store, (state) => state.meta.errors);
 
   return (
     <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
-        {label}
-      </Label>
+      <div className="flex items-center justify-between gap-2">
+        <Label htmlFor={label} className="mb-2 text-xl font-bold">
+          {label}
+        </Label>
+        <span className="text-sm text-muted-foreground">{field.state.value}</span>
+      </div>
       <ShadcnSlider
         id={label}
         onBlur={field.handleBlur}
         value={[field.state.value]}
         onValueChange={(value) => field.handleChange(value[0])}
+        min={min}
+        max={max}
       />
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
-    </div>
-  );
-}
-
-export function Switch({ label }: { label: string }) {
-  const field = useFieldContext<boolean>();
-  const errors = useStore(field.store, (state) => state.meta.errors);
-
-  return (
-    <div>
-      <div className="flex items-center gap-2">
-        <ShadcnSwitch
-          id={label}
-          onBlur={field.handleBlur}
-          checked={field.state.value}
-          onCheckedChange={(checked) => field.handleChange(checked)}
-        />
-        <Label htmlFor={label}>{label}</Label>
-      </div>
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
   );
