@@ -9,15 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as SensitivityRouteImport } from './routes/sensitivity'
+import { Route as ExplainedRouteImport } from './routes/explained'
+import { Route as AllocatorRouteImport } from './routes/allocator'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const SensitivityRoute = SensitivityRouteImport.update({
+  id: '/sensitivity',
+  path: '/sensitivity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplainedRoute = ExplainedRouteImport.update({
+  id: '/explained',
+  path: '/explained',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AllocatorRoute = AllocatorRouteImport.update({
+  id: '/allocator',
+  path: '/allocator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,14 +55,18 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/allocator': typeof AllocatorRoute
+  '/explained': typeof ExplainedRoute
+  '/sensitivity': typeof SensitivityRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/allocator': typeof AllocatorRoute
+  '/explained': typeof ExplainedRoute
+  '/sensitivity': typeof SensitivityRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
@@ -58,7 +74,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/allocator': typeof AllocatorRoute
+  '/explained': typeof ExplainedRoute
+  '/sensitivity': typeof SensitivityRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
@@ -67,21 +85,27 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
+    | '/allocator'
+    | '/explained'
+    | '/sensitivity'
     | '/demo/tanstack-query'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
+    | '/allocator'
+    | '/explained'
+    | '/sensitivity'
     | '/demo/tanstack-query'
     | '/demo/form/address'
     | '/demo/form/simple'
   id:
     | '__root__'
     | '/'
-    | '/about'
+    | '/allocator'
+    | '/explained'
+    | '/sensitivity'
     | '/demo/tanstack-query'
     | '/demo/form/address'
     | '/demo/form/simple'
@@ -89,7 +113,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  AllocatorRoute: typeof AllocatorRoute
+  ExplainedRoute: typeof ExplainedRoute
+  SensitivityRoute: typeof SensitivityRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
@@ -97,11 +123,25 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/sensitivity': {
+      id: '/sensitivity'
+      path: '/sensitivity'
+      fullPath: '/sensitivity'
+      preLoaderRoute: typeof SensitivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explained': {
+      id: '/explained'
+      path: '/explained'
+      fullPath: '/explained'
+      preLoaderRoute: typeof ExplainedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/allocator': {
+      id: '/allocator'
+      path: '/allocator'
+      fullPath: '/allocator'
+      preLoaderRoute: typeof AllocatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -137,7 +177,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  AllocatorRoute: AllocatorRoute,
+  ExplainedRoute: ExplainedRoute,
+  SensitivityRoute: SensitivityRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
