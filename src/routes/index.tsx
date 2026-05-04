@@ -1,6 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
+import z from "zod";
 
-export const Route = createFileRoute("/")({ component: App });
+const healthSchema = z.object({
+  status: z.enum(["healthy", "unhealthy", "error"]),
+  cache_age_hours: z.number().nullable(),
+  fred_reachable: z.boolean(),
+  as_of: z.string(),
+});
+
+const getHealth = async () => {
+  try {
+    const response = await fetch("http://localhost:8000/health");
+    const data = await response.json();
+    return healthSchema.parse(data);
+  } catch (error) {
+    console.error("Error fetching health status:", error);
+    return { status: "error" };
+  }
+};
+
+export const Route = createFileRoute("/")({ component: App, loader: getHealth });
+
+const HealthCheck = () => {
+  const health = Route.useLoaderData();
+
+  return (
+    <div className="island-shell mt-10 p-6 sm:p-8">
+      <p className="island-kicker mb-2">Health Check</p>
+      <h2 className="mb-3 text-2xl font-bold text-[var(--sea-ink)]">API Status</h2>
+      <p className="mb-3 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
+        The API is currently:{" "}
+        <span className="font-semibold text-[var(--lagoon-deep)]">{health.status}</span>
+      </p>
+    </div>
+  );
+};
 
 function App() {
   return (
@@ -25,6 +59,8 @@ function App() {
           </a>
         </div>
       </section>
+
+      <HealthCheck />
     </main>
   );
 }
