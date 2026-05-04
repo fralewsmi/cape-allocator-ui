@@ -53,7 +53,7 @@ export function Select({
       <ShadcnSelect.Select
         name={field.name}
         value={field.state.value}
-        onValueChange={(value) => field.handleChange(value)}
+        onValueChange={(value) => field.handleChange(value ?? "")}
       >
         <ShadcnSelect.SelectTrigger className="w-full">
           <ShadcnSelect.SelectValue placeholder={placeholder} />
@@ -102,7 +102,7 @@ export function Slider({
         id={label}
         onBlur={field.handleBlur}
         value={[field.state.value]}
-        onValueChange={(value) => field.handleChange(value[0])}
+        onValueChange={(value) => field.handleChange(Array.isArray(value) ? value[0] : value)}
         min={min}
         max={max}
       />
