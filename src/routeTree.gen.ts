@@ -13,7 +13,6 @@ import { Route as SensitivityRouteImport } from './routes/sensitivity'
 import { Route as ExplainedRouteImport } from './routes/explained'
 import { Route as AllocatorRouteImport } from './routes/allocator'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 
 const SensitivityRoute = SensitivityRouteImport.update({
   id: '/sensitivity',
@@ -35,25 +34,18 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,30 +53,13 @@ export interface FileRoutesById {
   '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/allocator'
-    | '/explained'
-    | '/sensitivity'
-    | '/demo/tanstack-query'
+  fullPaths: '/' | '/allocator' | '/explained' | '/sensitivity'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/allocator'
-    | '/explained'
-    | '/sensitivity'
-    | '/demo/tanstack-query'
-  id:
-    | '__root__'
-    | '/'
-    | '/allocator'
-    | '/explained'
-    | '/sensitivity'
-    | '/demo/tanstack-query'
+  to: '/' | '/allocator' | '/explained' | '/sensitivity'
+  id: '__root__' | '/' | '/allocator' | '/explained' | '/sensitivity'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,7 +67,6 @@ export interface RootRouteChildren {
   AllocatorRoute: typeof AllocatorRoute
   ExplainedRoute: typeof ExplainedRoute
   SensitivityRoute: typeof SensitivityRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -125,13 +99,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -140,7 +107,6 @@ const rootRouteChildren: RootRouteChildren = {
   AllocatorRoute: AllocatorRoute,
   ExplainedRoute: ExplainedRoute,
   SensitivityRoute: SensitivityRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
