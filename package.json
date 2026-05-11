@@ -10,7 +10,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "deploy": "bun run build && wrangler deploy",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",

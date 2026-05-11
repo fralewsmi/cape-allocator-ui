@@ -1,6 +1,11 @@
 # CAPE Allocator UI
 
+[![CI](https://github.com/fralewsmi/cape-allocator-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/fralewsmi/cape-allocator-ui/actions/workflows/ci.yml)
+[![Live](https://img.shields.io/badge/live-Cloudflare%20Workers-orange)](https://cape-allocator-ui.lewissmith-fraser.workers.dev)
+
 Frontend for the Component CAPE + Merton Rule Portfolio Allocator [fralewsmi/cape-allocator](https://github.com/fralewsmi/cape-allocator)
+
+Live app: <https://cape-allocator-ui.lewissmith-fraser.workers.dev>
 
 The app is built with TanStack Start, React, Tailwind CSS, and the Cloudflare Vite plugin. It is intended to call the allocator API from the backend service.
 
@@ -17,7 +22,6 @@ The backend exposes the allocator endpoints used by the UI:
 
 - [Bun](https://bun.sh/)
 - A running allocator API backend
-- [Wrangler](https://developers.cloudflare.com/workers/wrangler/) access for Cloudflare deployment
 
 ## Local Development
 
@@ -46,29 +50,11 @@ bun run lint       # run oxlint
 bun run lint:fix   # run oxlint with fixes
 bun run fmt        # format with oxfmt
 bun run fmt:check  # check formatting
-bun run deploy     # build and deploy with Wrangler
 ```
 
-## Cloudflare Deployment
+## Deployment
 
-This app is set up for Cloudflare via `@cloudflare/vite-plugin` and `wrangler.jsonc`.
-
-Before deploying:
-
-1. Update `wrangler.jsonc` with the final Cloudflare Worker/app name.
-2. Confirm the frontend is using the production API URL.
-3. Configure CORS on the backend so it allows the deployed frontend origin.
-4. Run a production build locally.
-
-```bash
-bun run build
-```
-
-Deploy:
-
-```bash
-bun run deploy
-```
+Deployment to Cloudflare Workers is automatic. The production app is available at <https://cape-allocator-ui.lewissmith-fraser.workers.dev>.
 
 ## API Notes
 
