@@ -82,10 +82,12 @@ export function Slider({
   label,
   min = 0,
   max = 100,
+  step = 1,
 }: {
   label: string;
   min?: number;
   max?: number;
+  step?: number;
 }) {
   const field = useFieldContext<number>();
   const errors = useStore(field.store, (state) => state.meta.errors);
@@ -105,6 +107,7 @@ export function Slider({
         onValueChange={(value) => field.handleChange(Array.isArray(value) ? value[0] : value)}
         min={min}
         max={max}
+        step={step}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
