@@ -1,25 +1,9 @@
-import { useAppForm } from "#/hooks/allocator.form";
-import { computeAllocation, getCapeVariants } from "#/lib/api/server-functions";
-import {
-  allocationRequestSchema,
-  type AllocationResponse,
-  type CapeVariantInfo,
-} from "#/lib/api/schemas";
+import { computeAllocation } from "#/lib/api/server-functions";
+import { allocationRequestSchema, type AllocationResponse, type CapeVariantInfo } from "#/lib/api/schemas";
 import { useServerFn } from "@tanstack/react-start";
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-export const Route = createFileRoute("/allocator")({
-  loader: async () => {
-    try {
-      return await getCapeVariants();
-    } catch (error) {
-      console.error("Error fetching CAPE variants:", error);
-      return { variants: [] };
-    }
-  },
-  component: RouteComponent,
-});
+import { useAppForm } from "./-form";
 
 const bounds = {
   gamma: { min: 0.5, max: 20, step: 0.5 },
@@ -33,6 +17,17 @@ const percentFormatter = new Intl.NumberFormat("en", {
 });
 
 const numberFormatter = new Intl.NumberFormat("en", { maximumFractionDigits: 2 });
+
+function Result({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border border-[var(--line)] bg-[var(--surface-strong)] p-4">
+      <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--kicker)]">
+        {label}
+      </dt>
+      <dd className="mt-2 text-2xl font-bold text-[var(--sea-ink)]">{value}</dd>
+    </div>
+  );
+}
 
 function ResultPanel({ result }: { result: AllocationResponse }) {
   return (
@@ -91,18 +86,7 @@ function ResultPanel({ result }: { result: AllocationResponse }) {
   );
 }
 
-function Result({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="border border-[var(--line)] bg-[var(--surface-strong)] p-4">
-      <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--kicker)]">
-        {label}
-      </dt>
-      <dd className="mt-2 text-2xl font-bold text-[var(--sea-ink)]">{value}</dd>
-    </div>
-  );
-}
-
-function AllocatorForm({ variants }: { variants: Array<CapeVariantInfo> }) {
+export function AllocatorFormPanel({ variants }: { variants: Array<CapeVariantInfo> }) {
   const submitAllocation = useServerFn(computeAllocation);
   const [result, setResult] = useState<AllocationResponse | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -121,9 +105,7 @@ function AllocatorForm({ variants }: { variants: Array<CapeVariantInfo> }) {
       setSubmitError(null);
 
       try {
-        const response = await submitAllocation({
-          data: value,
-        });
+        const response = await submitAllocation({ data: value });
         setResult(response);
       } catch (error) {
         setResult(null);
@@ -198,24 +180,5 @@ function AllocatorForm({ variants }: { variants: Array<CapeVariantInfo> }) {
 
       {result && <ResultPanel result={result} />}
     </form>
-  );
-}
-
-function RouteComponent() {
-  const { variants } = Route.useLoaderData();
-
-  return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell  p-6 sm:p-8">
-        <p className="island-kicker mb-2">Live allocator</p>
-        <h1 className="mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">Allocator</h1>
-        <p className="mb-3 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
-          Choose your risk aversion, volatility assumption, momentum blend, and CAPE variant. The
-          request is validated with Zod and sent through a TanStack server function to the allocator
-          API.
-        </p>
-        <AllocatorForm variants={variants} />
-      </section>
-    </main>
   );
 }

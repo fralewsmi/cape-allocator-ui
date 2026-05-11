@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SensitivityRouteImport } from './routes/sensitivity'
 import { Route as ExplainedRouteImport } from './routes/explained'
-import { Route as AllocatorRouteImport } from './routes/allocator'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AllocatorIndexRouteImport } from './routes/allocator/index'
 
 const SensitivityRoute = SensitivityRouteImport.update({
   id: '/sensitivity',
@@ -24,49 +24,49 @@ const ExplainedRoute = ExplainedRouteImport.update({
   path: '/explained',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AllocatorRoute = AllocatorRouteImport.update({
-  id: '/allocator',
-  path: '/allocator',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AllocatorIndexRoute = AllocatorIndexRouteImport.update({
+  id: '/allocator/',
+  path: '/allocator/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
+  '/allocator/': typeof AllocatorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
+  '/allocator': typeof AllocatorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/allocator': typeof AllocatorRoute
   '/explained': typeof ExplainedRoute
   '/sensitivity': typeof SensitivityRoute
+  '/allocator/': typeof AllocatorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/allocator' | '/explained' | '/sensitivity'
+  fullPaths: '/' | '/explained' | '/sensitivity' | '/allocator/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/allocator' | '/explained' | '/sensitivity'
-  id: '__root__' | '/' | '/allocator' | '/explained' | '/sensitivity'
+  to: '/' | '/explained' | '/sensitivity' | '/allocator'
+  id: '__root__' | '/' | '/explained' | '/sensitivity' | '/allocator/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AllocatorRoute: typeof AllocatorRoute
   ExplainedRoute: typeof ExplainedRoute
   SensitivityRoute: typeof SensitivityRoute
+  AllocatorIndexRoute: typeof AllocatorIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,13 +85,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExplainedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/allocator': {
-      id: '/allocator'
-      path: '/allocator'
-      fullPath: '/allocator'
-      preLoaderRoute: typeof AllocatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -99,14 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/allocator/': {
+      id: '/allocator/'
+      path: '/allocator'
+      fullPath: '/allocator/'
+      preLoaderRoute: typeof AllocatorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AllocatorRoute: AllocatorRoute,
   ExplainedRoute: ExplainedRoute,
   SensitivityRoute: SensitivityRoute,
+  AllocatorIndexRoute: AllocatorIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

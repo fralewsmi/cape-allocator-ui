@@ -1,12 +1,11 @@
 import { useStore } from "@tanstack/react-form";
 
-import { useFieldContext } from "#/hooks/allocator.form-context";
-
 import { Slider as ShadcnSlider } from "#/components/ui/slider";
 import { Label } from "#/components/ui/label";
-import { Button } from "./ui/button";
-import { useFormContext } from "#/hooks/allocator.form-context";
+import { Button } from "#/components/ui/button";
 import * as ShadcnSelect from "#/components/ui/select";
+
+import { useFieldContext, useFormContext } from "./-form-context";
 
 export function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext();
