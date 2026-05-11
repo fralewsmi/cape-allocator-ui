@@ -90,7 +90,7 @@ function RouteComponent() {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="merton">
+          <AccordionItem value="merton" id="merton">
             <AccordionTrigger>The Merton Rule</AccordionTrigger>
             <AccordionContent>
               <p>
@@ -141,8 +141,8 @@ function RouteComponent() {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="gamma">
-            <AccordionTrigger>Choosing γ (risk aversion)</AccordionTrigger>
+          <AccordionItem value="gamma" id="gamma">
+            <AccordionTrigger>Risk aversion (γ)</AccordionTrigger>
             <AccordionContent>
               <p>
                 A standard heuristic: ask yourself how a permanent 50% loss of wealth would affect
