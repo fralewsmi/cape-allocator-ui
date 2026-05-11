@@ -1,25 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import z from "zod";
+import { getHealth } from "#/lib/api/server-functions";
+import type { HealthResponse } from "#/lib/api/schemas";
 
-const healthSchema = z.object({
-  status: z.enum(["healthy", "unhealthy", "error"]),
-  cache_age_hours: z.number().nullable(),
-  fred_reachable: z.boolean(),
-  as_of: z.string(),
-});
-
-const getHealth = async () => {
+const loadHealth = async (): Promise<HealthResponse> => {
   try {
-    const response = await fetch("http://localhost:8000/health");
-    const data = await response.json();
-    return healthSchema.parse(data);
+    return await getHealth();
   } catch (error) {
     console.error("Error fetching health status:", error);
-    return { status: "error" };
+    return {
+      status: "error",
+      cache_age_hours: null,
+      fred_reachable: false,
+      as_of: null,
+    };
   }
 };
 
-export const Route = createFileRoute("/")({ component: App, loader: getHealth });
+export const Route = createFileRoute("/")({ component: App, loader: loadHealth });
 
 const HealthCheck = () => {
   const health = Route.useLoaderData();
