@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { getHealth } from "#/lib/api/server-functions";
 import type { HealthResponse } from "#/lib/api/schemas";
 
@@ -44,7 +44,10 @@ function App() {
         </h1>
         <p className="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
           This is a portfolio allocation model which uses the Component CAPE and 12-month momentum
-          to determine an optimal equity allocation.
+          to determine an optimal equity allocation.{" "}
+          <Link to="/explained" className="underline">
+            Read more →
+          </Link>
         </p>
         <div className="flex flex-wrap gap-3">
           <a

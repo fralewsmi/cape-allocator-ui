@@ -5,6 +5,6 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "vars": {
-    "CAPE_API_BASE_URL": "http://localhost:8000"
-  }
+    "CAPE_API_BASE_URL": "http://localhost:8000",
+  },
 }
