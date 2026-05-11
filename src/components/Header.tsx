@@ -46,6 +46,13 @@ export default function Header() {
             Allocator
           </Link>
           <Link
+            to="/market-data"
+            className="nav-link"
+            activeProps={{ className: "nav-link is-active" }}
+          >
+            Market Data
+          </Link>
+          <Link
             to="/sensitivity"
             className="nav-link"
             activeProps={{ className: "nav-link is-active" }}

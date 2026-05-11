@@ -4,6 +4,7 @@ import {
   type AllocationResponse,
   type CapeVariantInfo,
 } from "#/lib/api/schemas";
+import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
@@ -24,12 +25,16 @@ const numberFormatter = new Intl.NumberFormat("en", { maximumFractionDigits: 2 }
 
 function Result({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border border-[var(--line)] bg-[var(--surface-strong)] p-4">
-      <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--kicker)]">
-        {label}
-      </dt>
-      <dd className="mt-2 text-2xl font-bold text-[var(--sea-ink)]">{value}</dd>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          {label}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-2xl font-bold text-[var(--sea-ink)]">{value}</p>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ExplainedRouteImport } from './routes/explained'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SensitivityIndexRouteImport } from './routes/sensitivity/index'
+import { Route as MarketDataIndexRouteImport } from './routes/market-data/index'
 import { Route as AllocatorIndexRouteImport } from './routes/allocator/index'
 
 const ExplainedRoute = ExplainedRouteImport.update({
@@ -29,6 +30,11 @@ const SensitivityIndexRoute = SensitivityIndexRouteImport.update({
   path: '/sensitivity/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketDataIndexRoute = MarketDataIndexRouteImport.update({
+  id: '/market-data/',
+  path: '/market-data/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AllocatorIndexRoute = AllocatorIndexRouteImport.update({
   id: '/allocator/',
   path: '/allocator/',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
   '/allocator/': typeof AllocatorIndexRoute
+  '/market-data/': typeof MarketDataIndexRoute
   '/sensitivity/': typeof SensitivityIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
   '/allocator': typeof AllocatorIndexRoute
+  '/market-data': typeof MarketDataIndexRoute
   '/sensitivity': typeof SensitivityIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
   '/allocator/': typeof AllocatorIndexRoute
+  '/market-data/': typeof MarketDataIndexRoute
   '/sensitivity/': typeof SensitivityIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explained' | '/allocator/' | '/sensitivity/'
+  fullPaths:
+    | '/'
+    | '/explained'
+    | '/allocator/'
+    | '/market-data/'
+    | '/sensitivity/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explained' | '/allocator' | '/sensitivity'
-  id: '__root__' | '/' | '/explained' | '/allocator/' | '/sensitivity/'
+  to: '/' | '/explained' | '/allocator' | '/market-data' | '/sensitivity'
+  id:
+    | '__root__'
+    | '/'
+    | '/explained'
+    | '/allocator/'
+    | '/market-data/'
+    | '/sensitivity/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExplainedRoute: typeof ExplainedRoute
   AllocatorIndexRoute: typeof AllocatorIndexRoute
+  MarketDataIndexRoute: typeof MarketDataIndexRoute
   SensitivityIndexRoute: typeof SensitivityIndexRoute
 }
 
@@ -92,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SensitivityIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/market-data/': {
+      id: '/market-data/'
+      path: '/market-data'
+      fullPath: '/market-data/'
+      preLoaderRoute: typeof MarketDataIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/allocator/': {
       id: '/allocator/'
       path: '/allocator'
@@ -106,6 +134,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExplainedRoute: ExplainedRoute,
   AllocatorIndexRoute: AllocatorIndexRoute,
+  MarketDataIndexRoute: MarketDataIndexRoute,
   SensitivityIndexRoute: SensitivityIndexRoute,
 }
 export const routeTree = rootRouteImport

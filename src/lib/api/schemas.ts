@@ -99,5 +99,7 @@ export type AllocationRequest = z.infer<typeof allocationRequestSchema>;
 export type AllocationResponse = z.infer<typeof allocationResponseSchema>;
 export type CapeVariantInfo = z.infer<typeof capeVariantInfoSchema>;
 export type HealthResponse = z.infer<typeof healthResponseSchema>;
+export type MarketInputsResponse = z.infer<typeof marketInputsResponseSchema>;
+export type DataWarning = z.infer<typeof dataWarningSchema>;
 export type SensitivityRequest = z.infer<typeof sensitivityRequestSchema>;
 export type SensitivityDataPoint = z.infer<typeof sensitivityDataPointSchema>;

@@ -6,6 +6,7 @@ import {
   capeVariantsResponseSchema,
   errorResponseSchema,
   healthResponseSchema,
+  marketInputsResponseSchema,
   sensitivityDataPointSchema,
   sensitivityRequestSchema,
 } from "./schemas";
@@ -39,6 +40,13 @@ export const getCapeVariants = createServerFn({ method: "GET" }).handler(async (
   const data = await readJsonResponse(response);
 
   return capeVariantsResponseSchema.parse(data);
+});
+
+export const getMarketInputs = createServerFn({ method: "GET" }).handler(async () => {
+  const response = await fetch(`${API_BASE_URL}/api/market-inputs?cape_variant=component_10y`);
+  const data = await readJsonResponse(response);
+
+  return marketInputsResponseSchema.parse(data);
 });
 
 export const computeAllocation = createServerFn({ method: "POST" })
