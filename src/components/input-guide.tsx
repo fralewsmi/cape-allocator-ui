@@ -5,10 +5,6 @@ import {
   AccordionTrigger,
 } from "#/components/ui/accordion";
 
-// ── Shared accordion items ────────────────────────────────────────
-// Each item is exported individually so routes can compose only
-// the sections relevant to their inputs.
-
 export function GammaGuideItem() {
   return (
     <AccordionItem value="gamma">
@@ -93,9 +89,6 @@ export function MomentumGuideItem() {
   );
 }
 
-// ── Convenience wrappers ──────────────────────────────────────────
-
-/** Full guide: γ + σ + momentum. Used by the Allocator route. */
 export function AllocatorInputGuide() {
   return (
     <Accordion className="mb-8 max-w-3xl" multiple>
@@ -106,7 +99,6 @@ export function AllocatorInputGuide() {
   );
 }
 
-/** Reduced guide: γ + σ only. Used by the Sensitivity route. */
 export function SensitivityInputGuide() {
   return (
     <Accordion className="mb-8 max-w-3xl" multiple>
