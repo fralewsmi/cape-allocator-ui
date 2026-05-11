@@ -9,16 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SensitivityRouteImport } from './routes/sensitivity'
 import { Route as ExplainedRouteImport } from './routes/explained'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SensitivityIndexRouteImport } from './routes/sensitivity/index'
 import { Route as AllocatorIndexRouteImport } from './routes/allocator/index'
 
-const SensitivityRoute = SensitivityRouteImport.update({
-  id: '/sensitivity',
-  path: '/sensitivity',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ExplainedRoute = ExplainedRouteImport.update({
   id: '/explained',
   path: '/explained',
@@ -27,6 +22,11 @@ const ExplainedRoute = ExplainedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SensitivityIndexRoute = SensitivityIndexRouteImport.update({
+  id: '/sensitivity/',
+  path: '/sensitivity/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AllocatorIndexRoute = AllocatorIndexRouteImport.update({
@@ -38,46 +38,39 @@ const AllocatorIndexRoute = AllocatorIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
-  '/sensitivity': typeof SensitivityRoute
   '/allocator/': typeof AllocatorIndexRoute
+  '/sensitivity/': typeof SensitivityIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
-  '/sensitivity': typeof SensitivityRoute
   '/allocator': typeof AllocatorIndexRoute
+  '/sensitivity': typeof SensitivityIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/explained': typeof ExplainedRoute
-  '/sensitivity': typeof SensitivityRoute
   '/allocator/': typeof AllocatorIndexRoute
+  '/sensitivity/': typeof SensitivityIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explained' | '/sensitivity' | '/allocator/'
+  fullPaths: '/' | '/explained' | '/allocator/' | '/sensitivity/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explained' | '/sensitivity' | '/allocator'
-  id: '__root__' | '/' | '/explained' | '/sensitivity' | '/allocator/'
+  to: '/' | '/explained' | '/allocator' | '/sensitivity'
+  id: '__root__' | '/' | '/explained' | '/allocator/' | '/sensitivity/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExplainedRoute: typeof ExplainedRoute
-  SensitivityRoute: typeof SensitivityRoute
   AllocatorIndexRoute: typeof AllocatorIndexRoute
+  SensitivityIndexRoute: typeof SensitivityIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sensitivity': {
-      id: '/sensitivity'
-      path: '/sensitivity'
-      fullPath: '/sensitivity'
-      preLoaderRoute: typeof SensitivityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/explained': {
       id: '/explained'
       path: '/explained'
@@ -90,6 +83,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sensitivity/': {
+      id: '/sensitivity/'
+      path: '/sensitivity'
+      fullPath: '/sensitivity/'
+      preLoaderRoute: typeof SensitivityIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/allocator/': {
@@ -105,8 +105,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExplainedRoute: ExplainedRoute,
-  SensitivityRoute: SensitivityRoute,
   AllocatorIndexRoute: AllocatorIndexRoute,
+  SensitivityIndexRoute: SensitivityIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

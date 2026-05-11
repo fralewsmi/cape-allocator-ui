@@ -1,5 +1,9 @@
 import { computeAllocation } from "#/lib/api/server-functions";
-import { allocationRequestSchema, type AllocationResponse, type CapeVariantInfo } from "#/lib/api/schemas";
+import {
+  allocationRequestSchema,
+  type AllocationResponse,
+  type CapeVariantInfo,
+} from "#/lib/api/schemas";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 

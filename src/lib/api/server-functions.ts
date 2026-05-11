@@ -6,6 +6,8 @@ import {
   capeVariantsResponseSchema,
   errorResponseSchema,
   healthResponseSchema,
+  sensitivityDataPointSchema,
+  sensitivityRequestSchema,
 } from "./schemas";
 
 const API_BASE_URL = process.env.CAPE_API_BASE_URL ?? "http://localhost:8000";
@@ -50,4 +52,35 @@ export const computeAllocation = createServerFn({ method: "POST" })
     const responseData = await readJsonResponse(response);
 
     return allocationResponseSchema.parse(responseData);
+  });
+
+export const getSensitivity = createServerFn({ method: "GET" })
+  .inputValidator(sensitivityRequestSchema)
+  .handler(async ({ data }) => {
+    const params = new URLSearchParams({
+      gamma_min: String(data.gamma_min),
+      gamma_max: String(data.gamma_max),
+      cape_min: String(data.cape_min),
+      cape_max: String(data.cape_max),
+      cape_step: String(data.cape_step),
+      tips_yield: String(data.tips_yield),
+      sigma: String(data.sigma),
+    });
+
+    const response = await fetch(`${API_BASE_URL}/api/sensitivity?${params}`);
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => null);
+      const parsedError = errorResponseSchema.safeParse(data);
+      const message = parsedError.success
+        ? parsedError.data.detail
+        : `Sensitivity API request failed with ${response.status}`;
+      throw new Error(message);
+    }
+
+    const text = await response.text();
+    return text
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => sensitivityDataPointSchema.parse(JSON.parse(line)));
   });

@@ -78,7 +78,26 @@ export const errorResponseSchema = z.object({
   warnings: z.array(z.unknown()).nullable().optional(),
 });
 
+export const sensitivityRequestSchema = z.object({
+  gamma_min: z.number().int().min(1).max(10).default(1),
+  gamma_max: z.number().int().min(1).max(10).default(10),
+  cape_min: z.number().positive().default(5.0),
+  cape_max: z.number().positive().default(80.0),
+  cape_step: z.number().positive().default(0.5),
+  tips_yield: z.number().min(-0.1).max(0.2).default(0.017),
+  sigma: z.number().min(0.05).max(0.6).default(0.18),
+});
+
+export const sensitivityDataPointSchema = z.object({
+  gamma: z.number(),
+  cape: z.number(),
+  equity_allocation: z.number(),
+  cer: z.number(),
+});
+
 export type AllocationRequest = z.infer<typeof allocationRequestSchema>;
 export type AllocationResponse = z.infer<typeof allocationResponseSchema>;
 export type CapeVariantInfo = z.infer<typeof capeVariantInfoSchema>;
 export type HealthResponse = z.infer<typeof healthResponseSchema>;
+export type SensitivityRequest = z.infer<typeof sensitivityRequestSchema>;
+export type SensitivityDataPoint = z.infer<typeof sensitivityDataPointSchema>;

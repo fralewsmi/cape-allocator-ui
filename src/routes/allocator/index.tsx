@@ -2,7 +2,7 @@ import { getCapeVariants } from "#/lib/api/server-functions";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { AllocatorFormPanel } from "./-form-panel";
-import { InputGuide } from "./-input-guide";
+import { AllocatorInputGuide } from "#/components/input-guide";
 
 export const Route = createFileRoute("/allocator/")({
   loader: async () => {
@@ -27,7 +27,7 @@ function RouteComponent() {
         <p className="mb-8 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
           Choose your risk aversion, volatility assumption, momentum blend, and CAPE variant.
         </p>
-        <InputGuide />
+        <AllocatorInputGuide />
         <AllocatorFormPanel variants={variants} />
       </section>
     </main>
