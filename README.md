@@ -5,8 +5,6 @@
 
 Frontend for the Component CAPE Portfolio Allocator [fralewsmi/cape-allocator](https://github.com/fralewsmi/cape-allocator)
 
-Live app: <https://cape-allocator-ui.lewissmith-fraser.workers.dev>
-
 The app is built with TanStack Start, React, Tailwind CSS, and the Cloudflare Vite plugin. It is intended to call the allocator API from the backend service.
 
 The backend exposes the allocator endpoints used by the UI:
@@ -55,12 +53,6 @@ bun run fmt:check  # check formatting
 ## Deployment
 
 Deployment to Cloudflare Workers is automatic. The production app is available at <https://cape-allocator-ui.lewissmith-fraser.workers.dev>.
-
-## API Notes
-
-The allocator API needs a `FRED_API_KEY` for live market data. See [fralewsmi/cape-allocator](https://github.com/fralewsmi/cape-allocator) for backend installation, environment variables, endpoint examples, and deployment notes.
-
-For production, the API should expose a stable HTTPS origin that the Cloudflare-hosted frontend can call.
 
 ## Tech Stack
 
