@@ -40,11 +40,11 @@ function App() {
         <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56  bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
         <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56  bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
         <h1 className="mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-          Component CAPE + Merton Rule Portfolio Allocator
+          Component CAPE Portfolio Allocator
         </h1>
         <p className="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
           This is a portfolio allocation model which uses the Component CAPE and 12-month momentum
-          to determine an optimal equity allocation.{" "}
+          to determine an optimal equity allocation as a Merton ratio.{" "}
           <Link to="/explained" className="underline">
             Read more →
           </Link>

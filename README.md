@@ -3,7 +3,7 @@
 [![CI](https://github.com/fralewsmi/cape-allocator-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/fralewsmi/cape-allocator-ui/actions/workflows/ci.yml)
 [![Live](https://img.shields.io/badge/live-Cloudflare%20Workers-orange)](https://cape-allocator-ui.lewissmith-fraser.workers.dev)
 
-Frontend for the Component CAPE + Merton Rule Portfolio Allocator [fralewsmi/cape-allocator](https://github.com/fralewsmi/cape-allocator)
+Frontend for the Component CAPE Portfolio Allocator [fralewsmi/cape-allocator](https://github.com/fralewsmi/cape-allocator)
 
 Live app: <https://cape-allocator-ui.lewissmith-fraser.workers.dev>
 

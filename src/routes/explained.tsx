@@ -32,8 +32,7 @@ function RouteComponent() {
       <section className="island-shell p-6 sm:p-8">
         <h1 className="mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">Explained</h1>
         <p className="mb-8 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
-          The model behind the allocator — CAPE, the Merton Rule, risk aversion, and where the data
-          comes from.
+          CAPE, the Merton ratio, risk aversion, and data sources.
         </p>
 
         <Accordion className="max-w-3xl" multiple>
@@ -51,7 +50,7 @@ function RouteComponent() {
                 The traditional Shiller CAPE uses aggregate S&amp;P 500 earnings.{" "}
                 <Ref href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6060895">
                   Ma, Marshall, Nguyen &amp; Visaltanachoti (2026)
-                </Ref>
+                </Ref>{" "}
                 proposed the <em>Component CAPE</em>, which computes CAPE bottom-up from individual
                 constituent earnings weighted by market cap. This approach avoids distortions from
                 index composition changes and produces a more stable earnings series.
@@ -91,13 +90,14 @@ function RouteComponent() {
           </AccordionItem>
 
           <AccordionItem value="merton" id="merton">
-            <AccordionTrigger>The Merton Rule</AccordionTrigger>
+            <AccordionTrigger>The Merton Ratio</AccordionTrigger>
             <AccordionContent>
               <p>
-                The Merton Rule (
-                <Ref href="https://doi.org/10.1016/0022-0531(71)90038-X">Merton, 1971</Ref>) gives
-                the optimal fraction of wealth to hold in risky assets for an investor with constant
-                relative risk aversion:
+                The Merton ratio (
+                <Ref href="https://doi.org/10.1016/0022-0531(71)90038-X">Merton, 1971</Ref>) is the
+                equity exposure that maximises expected utility for an investor with constant
+                relative risk aversion, given the expected excess return, equity volatility, and the
+                investor's degree of risk aversion. It takes the form:
               </p>
               <Formula>f* = μ / (γ · σ²)</Formula>
               <p>Where:</p>
@@ -145,10 +145,9 @@ function RouteComponent() {
             <AccordionTrigger>Risk aversion (γ)</AccordionTrigger>
             <AccordionContent>
               <p>
-                A standard heuristic: ask yourself how a permanent 50% loss of wealth would affect
-                your life. Note that γ should reflect <em>financial</em> risk aversion rather than
-                emotional comfort — a large pension or guaranteed income effectively lowers your
-                financial γ even if markets make you nervous. See{" "}
+                A standard heuristic: consider how a permanent 50% loss of wealth would affect your
+                life. Note that γ should reflect <em>financial</em> risk aversion rather than
+                emotional comfort. See{" "}
                 <Ref href="https://elmwealth.com/measuring-the-fabric-of-felicity/">
                   Haghani &amp; White (2018)
                 </Ref>

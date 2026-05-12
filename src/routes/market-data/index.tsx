@@ -37,7 +37,7 @@ function RouteComponent() {
       <section className="island-shell p-6 sm:p-8">
         <h1 className="mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">Market Data</h1>
         <p className="mb-8 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
-          Live market inputs driving the Merton Rule calculation.{" "}
+          Live market inputs driving the Merton ratio calculation.{" "}
           {marketInputs && "As of " + marketInputs.as_of_date}
         </p>
 

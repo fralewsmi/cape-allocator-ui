@@ -1,6 +1,6 @@
 {
   "short_name": "CAPE Allocator App",
-  "name": "Component CAPE + Merton Rule Portfolio Allocator",
+  "name": "Component CAPE Portfolio Allocator",
   "icons": [
     {
       "src": "favicon.ico",
