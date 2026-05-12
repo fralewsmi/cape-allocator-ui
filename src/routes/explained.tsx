@@ -35,7 +35,7 @@ function RouteComponent() {
           CAPE, the Merton ratio, risk aversion, and data sources.
         </p>
 
-        <Accordion className="max-w-3xl" multiple>
+        <Accordion multiple>
           <AccordionItem value="cape">
             <AccordionTrigger>What is CAPE?</AccordionTrigger>
             <AccordionContent>
@@ -245,7 +245,7 @@ function RouteComponent() {
           </AccordionItem>
         </Accordion>
 
-        <div className="mt-10 max-w-3xl border-t border-[var(--line)] pt-6">
+        <div className="mt-10 border-t border-[var(--line)] pt-6">
           <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--kicker)]">
             References
           </p>

@@ -57,7 +57,7 @@ export function MomentumGuideItem() {
 
 export function AllocatorInputGuide() {
   return (
-    <Accordion className="mb-8 max-w-3xl" multiple>
+    <Accordion className="mb-8" multiple>
       <GammaGuideItem />
       <SigmaGuideItem />
       <MomentumGuideItem />
@@ -67,7 +67,7 @@ export function AllocatorInputGuide() {
 
 export function SensitivityInputGuide() {
   return (
-    <Accordion className="mb-8 max-w-3xl" multiple>
+    <Accordion className="mb-8" multiple>
       <GammaGuideItem />
       <SigmaGuideItem />
     </Accordion>
