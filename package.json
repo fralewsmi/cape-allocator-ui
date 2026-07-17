@@ -9,6 +9,7 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
+    "prepare": "simple-git-hooks",
     "test": "vitest",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -56,14 +57,28 @@
     "@vitest/browser-playwright": "^4.1.5",
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^28.1.0",
+    "lint-staged": "^17.0.8",
     "oxfmt": "^0.47.0",
     "oxlint": "^1.62.0",
     "playwright": "^1.59.1",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^6.0.3",
     "vite": "^8.0.10",
     "vitest": "^4.1.5",
     "vitest-browser-react": "^2.2.0",
     "wrangler": "^4.86.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bunx lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "oxlint --fix",
+      "oxfmt"
+    ],
+    "*.{js,jsx,mjs,cjs,json,css,md}": [
+      "oxfmt"
+    ]
   },
   "pnpm": {
     "onlyBuiltDependencies": [
