@@ -12,6 +12,7 @@ import {
 } from "./-metric-cards";
 import { VariantTable } from "./-variant-table";
 import { WarningsList } from "./-warnings-list";
+import { Skeleton } from "#/components/ui/skeleton";
 
 export const Route = createFileRoute("/market-data/")({
   loader: async () => {
@@ -27,7 +28,40 @@ export const Route = createFileRoute("/market-data/")({
     }
   },
   component: RouteComponent,
+  pendingComponent: MarketDataSkeleton,
 });
+
+function MarketDataSkeleton() {
+  return (
+    <main className="page-wrap px-4 py-12" aria-busy="true" aria-label="Loading market data">
+      <section className="island-shell p-6 sm:p-8">
+        {/* Heading */}
+        <Skeleton className="mb-3 h-10 w-44 sm:h-12" />
+        {/* Subtitle */}
+        <Skeleton className="mb-8 h-4 w-full max-w-lg" />
+        {/* Metric cards grid — 6 cards matching the real layout */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="island-shell p-4">
+              <Skeleton className="mb-2 h-3 w-28" />
+              <Skeleton className="mb-1 h-8 w-24" />
+              <Skeleton className="h-3 w-36" />
+            </div>
+          ))}
+        </div>
+        {/* Callout bar */}
+        <Skeleton className="mt-6 h-16 w-full" />
+        {/* Variant table */}
+        <div className="mt-6 space-y-2">
+          <Skeleton className="h-8 w-full" />
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-10 w-full" />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
 
 function RouteComponent() {
   const { marketInputs, variants } = Route.useLoaderData();

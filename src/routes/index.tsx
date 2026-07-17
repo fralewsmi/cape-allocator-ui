@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getHealth } from "#/lib/api/server-functions";
 import type { HealthResponse } from "#/lib/api/schemas";
+import { Skeleton } from "#/components/ui/skeleton";
 
 const loadHealth = async (): Promise<HealthResponse> => {
   try {
@@ -16,7 +17,31 @@ const loadHealth = async (): Promise<HealthResponse> => {
   }
 };
 
-export const Route = createFileRoute("/")({ component: App, loader: loadHealth });
+export const Route = createFileRoute("/")({
+  component: App,
+  loader: loadHealth,
+  pendingComponent: HomeSkeleton,
+});
+
+function HomeSkeleton() {
+  return (
+    <main className="page-wrap px-4 pb-8 pt-14" aria-busy="true" aria-label="Loading home">
+      {/* Hero island */}
+      <section className="island-shell relative overflow-hidden px-6 py-10 sm:px-10 sm:py-14">
+        <Skeleton className="mb-5 h-12 w-3/4 max-w-xl sm:h-16" />
+        <Skeleton className="mb-2 h-4 w-full max-w-lg" />
+        <Skeleton className="mb-8 h-4 w-2/3 max-w-md" />
+        <Skeleton className="h-10 w-36" />
+      </section>
+      {/* Health check island */}
+      <div className="island-shell mt-10 p-6 sm:p-8">
+        <Skeleton className="mb-2 h-3 w-24" />
+        <Skeleton className="mb-3 h-7 w-32" />
+        <Skeleton className="h-4 w-56" />
+      </div>
+    </main>
+  );
+}
 
 const HealthCheck = () => {
   const health = Route.useLoaderData();
