@@ -1,7 +1,7 @@
 import { getCapeVariants, getMarketInputs } from "#/lib/api/server-functions";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ExcessEarningsYieldCallout } from "./-callout";
+import { ExcessYieldCallout } from "./-callout";
 import {
   CapeMetricCard,
   ConstituentCoverageMetricCard,
@@ -35,11 +35,8 @@ function MarketDataSkeleton() {
   return (
     <main className="page-wrap px-4 py-12" aria-busy="true" aria-label="Loading market data">
       <section className="island-shell p-6 sm:p-8">
-        {/* Heading */}
         <Skeleton className="mb-3 h-10 w-44 sm:h-12" />
-        {/* Subtitle */}
         <Skeleton className="mb-8 h-4 w-full max-w-lg" />
-        {/* Metric cards grid — 6 cards matching the real layout */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="island-shell p-4">
@@ -49,9 +46,7 @@ function MarketDataSkeleton() {
             </div>
           ))}
         </div>
-        {/* Callout bar */}
         <Skeleton className="mt-6 h-16 w-full" />
-        {/* Variant table */}
         <div className="mt-6 space-y-2">
           <Skeleton className="h-8 w-full" />
           {Array.from({ length: 4 }).map((_, i) => (
@@ -71,7 +66,7 @@ function RouteComponent() {
       <section className="island-shell p-6 sm:p-8">
         <h1 className="mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">Market Data</h1>
         <p className="mb-8 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
-          Live market inputs driving the Merton ratio calculation.{" "}
+          Live market inputs drive the Merton ratio calculation.{" "}
           {marketInputs && "As of " + marketInputs.as_of_date}
         </p>
 
@@ -92,7 +87,7 @@ function RouteComponent() {
               />
               <EpsExclusionRateMetricCard epsExclusionRate={marketInputs.eps_exclusion_rate} />
             </div>
-            <ExcessEarningsYieldCallout
+            <ExcessYieldCallout
               capeValue={marketInputs.cape_value}
               tipsYield={marketInputs.tips_yield}
             />
@@ -113,9 +108,7 @@ function ErrorState() {
       <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--status-negative)]">
         Error
       </p>
-      <p className="text-base font-semibold text-[var(--sea-ink)]">
-        Market data could not be loaded
-      </p>
+      <p className="text-base font-semibold text-[var(--sea-ink)]">Market data did not load</p>
       <p className="mt-1 text-sm text-[var(--sea-ink-soft)]">
         The market inputs service is temporarily unavailable. Please try again later.
       </p>

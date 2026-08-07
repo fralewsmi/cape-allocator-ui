@@ -87,7 +87,7 @@ export function SensitivityFormPanel() {
   const [error, setError] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
-  // Buffer incoming points between rAF flushes to avoid a setState per row
+  // Buffer incoming points between animation-frame flushes to avoid a state update per row
   const pendingRef = useRef<Array<SensitivityDataPoint>>([]);
   const rafRef = useRef<number | null>(null);
 

@@ -72,7 +72,7 @@ export function CapeMetricCard({ marketInputs, variants }: CapeMetricCardProps) 
 }
 
 export function TipsYieldMetricCard({ tipsYield }: { tipsYield: number }) {
-  // tips_yield from the API is already a decimal ratio (e.g. 0.0196 = 1.96%)
+  // The API already returns a decimal ratio, for example 0.0196 for 1.96%.
   return <MetricCard label="10-yr TIPS Yield" value={percentFormatter.format(tipsYield)} />;
 }
 

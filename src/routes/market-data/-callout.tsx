@@ -1,14 +1,11 @@
 import { calculateExcessEarningsYield } from "./-utils";
 
-interface ExcessEarningsYieldCalloutProps {
+interface ExcessYieldCalloutProps {
   capeValue: number;
   tipsYield: number;
 }
 
-export function ExcessEarningsYieldCallout({
-  capeValue,
-  tipsYield,
-}: ExcessEarningsYieldCalloutProps) {
+export function ExcessYieldCallout({ capeValue, tipsYield }: ExcessYieldCalloutProps) {
   const excessYield = calculateExcessEarningsYield(capeValue, tipsYield);
 
   if (excessYield >= 0) return null;
